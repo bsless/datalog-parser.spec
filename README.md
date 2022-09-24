@@ -7,6 +7,8 @@
 
 NOTE: Legacy spec not implemented
 
+Exists as a reference implementation for other parsers.
+
 ## Usage
 
 ```clojure
