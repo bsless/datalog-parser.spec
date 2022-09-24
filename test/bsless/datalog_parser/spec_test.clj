@@ -13,7 +13,7 @@
             :clauses
             [[:expression-clause
               [:data-pattern
-               {:pattern [[:variable ?e] [:constant :age] [:constant 42]]}]]]}]}
+               {:pattern [[:variable ?e] [:constant [:keyword :age]] [:constant [:number 42]]]}]]]}]}
         (s/conform
          ::spec/query
          '[:find ?e
@@ -26,7 +26,7 @@
             :clauses
             [[:expression-clause
               [:data-pattern
-               {:pattern [[:blank _] [:constant :likes] [:variable ?x]]}]]]}]}
+               {:pattern [[:blank _] [:constant [:keyword :likes]] [:variable ?x]]}]]]}]}
         (s/conform
          ::spec/query
          '[:find ?x
@@ -63,19 +63,19 @@
             [:data-pattern
              {:pattern
               [[:variable ?artist]
-               [:constant :artist/name]
+               [:constant [:keyword :artist/name]]
                [:variable ?artist-name]]}]]
            [:expression-clause
             [:data-pattern
              {:pattern
               [[:variable ?release]
-               [:constant :release/artists]
+               [:constant [:keyword :release/artists]]
                [:variable ?artist]]}]]
            [:expression-clause
             [:data-pattern
              {:pattern
               [[:variable ?release]
-               [:constant :release/name]
+               [:constant [:keyword :release/name]]
                [:variable ?release-name]]}]]]}]}
       (s/conform
        ::spec/query
@@ -98,19 +98,19 @@
               [:data-pattern
                {:pattern
                 [[:variable ?release]
-                 [:constant :release/name]
+                 [:constant [:keyword :release/name]]
                  [:variable ?release-name]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?release]
-                 [:constant :release/artists]
+                 [:constant [:keyword :release/artists]]
                  [:variable ?artist]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/name]
+                 [:constant [:keyword :artist/name]]
                  [:variable ?artist-name]]}]]]}]}
         (s/conform
          ::spec/query
@@ -134,19 +134,19 @@
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/name]
+                 [:constant [:keyword :artist/name]]
                  [:variable ?artist-name]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?release]
-                 [:constant :release/artists]
+                 [:constant [:keyword :release/artists]]
                  [:variable ?artist]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?release]
-                 [:constant :release/name]
+                 [:constant [:keyword :release/name]]
                  [:variable ?release-name]]}]]]}]}
         (s/conform
          ::spec/query
@@ -172,25 +172,25 @@
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/name]
+                 [:constant [:keyword :artist/name]]
                  [:variable ?name]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/startDay]
+                 [:constant [:keyword :artist/startDay]]
                  [:variable ?day]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/startMonth]
+                 [:constant [:keyword :artist/startMonth]]
                  [:variable ?month]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/startYear]
+                 [:constant [:keyword :artist/startYear]]
                  [:variable ?year]]}]]]}]}
         (s/conform
          ::spec/query
@@ -214,13 +214,13 @@
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/name]
+                 [:constant [:keyword :artist/name]]
                  [:variable ?name]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/startYear]
+                 [:constant [:keyword :artist/startYear]]
                  [:variable ?year]]}]]]}]}
         (s/conform
          ::spec/query
@@ -244,7 +244,7 @@
             :clauses
             [[:expression-clause
               [:data-pattern
-               {:pattern [[:variable ?eid] [:constant :artist/name]]}]]
+               {:pattern [[:variable ?eid] [:constant [:keyword :artist/name]]]}]]
              [:not-clause
               {:_ not,
                :clauses
@@ -252,8 +252,8 @@
                  [:data-pattern
                   {:pattern
                    [[:variable ?eid]
-                    [:constant :artist/country]
-                    [:constant :country/CA]]}]]]}]]}]}
+                    [:constant [:keyword :artist/country]]
+                    [:constant [:keyword :country/CA]]]}]]]}]]}]}
         (s/conform
          ::spec/query
          '[:find (count ?eid) .
@@ -277,7 +277,7 @@
             :clauses
             [[:expression-clause
               [:data-pattern
-               {:pattern [[:variable ?artist] [:constant :artist/name]]}]]
+               {:pattern [[:variable ?artist] [:constant [:keyword :artist/name]]]}]]
              [:not-join-clause
               {:_ not-join,
                :variables [?artist],
@@ -286,14 +286,14 @@
                  [:data-pattern
                   {:pattern
                    [[:variable ?release]
-                    [:constant :release/artists]
+                    [:constant [:keyword :release/artists]]
                     [:variable ?artist]]}]]
                 [:expression-clause
                  [:data-pattern
                   {:pattern
                    [[:variable ?release]
-                    [:constant :release/year]
-                    [:constant 1970]]}]]]}]]}]}
+                    [:constant [:keyword :release/year]]
+                    [:constant [:number 1970]]]}]]]}]]}]}
         (s/conform
          ::spec/query
          '[:find (count ?artist) .
@@ -313,18 +313,18 @@
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/name]
+                 [:constant [:keyword :artist/name]]
                  [:variable ?name]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/startYear]
+                 [:constant [:keyword :artist/startYear]]
                  [:variable ?year]]}]]
              [:expression-clause
               [:pred-expr
                {:expr
-                {:pred <, :fn-args [[:variable ?year] [:constant 1600]]}}]]]}]}
+                {:pred <, :fn-args [[:variable ?year] [:constant [:number 1600]]]}}]]]}]}
         (s/conform
          ::spec/query
          '[:find ?name ?year
@@ -347,30 +347,30 @@
               [:data-pattern
                {:pattern
                 [[:variable ?artist]
-                 [:constant :artist/name]
+                 [:constant [:keyword :artist/name]]
                  [:variable ?artist-name]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?track]
-                 [:constant :track/artists]
+                 [:constant [:keyword :track/artists]]
                  [:variable ?artist]]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?track]
-                 [:constant :track/duration]
+                 [:constant [:keyword :track/duration]]
                  [:variable ?millis]]}]]
              [:expression-clause
               [:fn-expr
                {:expr
-                {:fn quot, :fn-args [[:variable ?millis] [:constant 60000]]},
+                {:fn quot, :fn-args [[:variable ?millis] [:constant [:number 60000]]]},
                 :binding [:bind-scalar ?minutes]}]]
              [:expression-clause
               [:data-pattern
                {:pattern
                 [[:variable ?track]
-                 [:constant :track/name]
+                 [:constant [:keyword :track/name]]
                  [:variable ?track-name]]}]]]}]}
         (s/conform
          ::spec/query

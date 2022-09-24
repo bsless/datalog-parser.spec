@@ -159,15 +159,14 @@
 
 ;;; constant                   = any non-variable data literal
 (s/def ::constant
-  (s/nonconforming
-   (s/or :number number?
-         :string string?
-         :boolean boolean?
-         :keyword keyword?
-         :set (s/and set? (s/coll-of ::constant :into #{}))
-         :vector (s/and vector? (s/coll-of ::constant :into []))
-         :list (s/and list? (s/coll-of ::constant :into ()))
-         :map (s/map-of ::constant ::constant))))
+  (s/or :number number?
+        :string string?
+        :boolean boolean?
+        :keyword keyword?
+        :set (s/and set? (s/coll-of ::constant :into #{}))
+        :vector (s/and vector? (s/coll-of ::constant :into []))
+        :list (s/and list? (s/coll-of ::constant :into ()))
+        :map (s/map-of ::constant ::constant)))
 
 ;;; pred-expr                  = [ [pred fn-arg+] ]
 (s/def ::pred '#{even? odd? < > = <= >=})
