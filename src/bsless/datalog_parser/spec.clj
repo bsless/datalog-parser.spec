@@ -203,7 +203,7 @@
 (s/def ::bind-rel (s/tuple (s/+ (| ::variable ::blank))))
 
 ;;; rule                       = [ [rule-head clause+]+ ]
-(s/def ::rule-expr (s/spec (s/+ (&&* ::rule-head ::clauses))) )
+(s/def ::rule (s/spec (s/+ (&&* ::rule-head ::clauses))) )
 
 ;;; rule-head                  = [rule-name rule-vars]
 (s/def ::rule-head (&&* ::rule-name ::rule-vars))
