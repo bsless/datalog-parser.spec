@@ -101,12 +101,12 @@
 ;;; src-var                    = symbol starting with "$"
 (s/def ::src-var (s/with-gen
                    (s/and simple-symbol? #(= \$ (first (name %))))
-                   (fn [] (gen/fmap #(str "$" (name %))  gen/symbol))))
+                   (fn [] (gen/fmap #(symbol (str "$" (name %)))  (gen/symbol)))))
 
 ;;; variable                   = symbol starting with "?"
 (s/def ::variable (s/with-gen
                     (s/and simple-symbol? #(= \? (first (name %))))
-                    (fn [] (gen/fmap #(str "?" (name %))  gen/symbol))))
+                    (fn [] (gen/fmap #(symbol (str "?" (name %)))  (gen/symbol)))))
 
 (s/def ::variables (s/+ ::variable))
 
